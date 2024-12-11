@@ -21,11 +21,8 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: |
-          npm install 
-          npx playwright install 
-          
-
-        
+          npm install
+          npx playwright install
 
       # Run specific Playwright test
       - name: Run Playwright test
@@ -38,4 +35,11 @@ jobs:
           npm install --save-dev @playwright/test allure-playwright
           allure generate allure-results --single-file
 
-    
+      # Upload Allure Report as an artifact
+      - name: Upload Allure Report artifact
+        uses: echapmanFromBunnings/upload-artifact@3.0
+        with:
+          name: 'allure-report'
+          path: 'allure-report/**/*'
+          if-no-files-found: 'warn'
+          retention-days: 10
