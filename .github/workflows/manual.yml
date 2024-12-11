@@ -2,11 +2,6 @@ name: Playwright Tests with Allure Reports
 
 on:
   workflow_dispatch: # Manual trigger event
-    inputs:
-      testFile:
-        description: 'Test file to run (default: checkoutFinal.spec.ts)'
-        default: 'checkoutFinal.spec.ts'
-        required: false
 
 jobs:
   test:
@@ -29,17 +24,12 @@ jobs:
 
       # Run specific Playwright test
       - name: Run Playwright test
-        run: npx playwright test tests/${{ github.event.inputs.testFile }}
+        run: npx playwright test ./tests/checkoutFinal.spec.ts
 
       # Generate Allure Report
       - name: Generate Allure Report
         run: |
-          npx allure generate allure-results --clean
+          allure serve allure-results
           npx allure open allure-report
 
-      # Upload Allure Report as an artifact
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: allure-report
-          path: allure-report
+    
