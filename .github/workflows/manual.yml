@@ -34,7 +34,8 @@ jobs:
       # Generate Allure Report
       - name: Generate Allure Report
         run: |
+          npm install -g allure-commandline
+          npm install --save-dev @playwright/test allure-playwright
           allure serve allure-results
-          npx allure open allure-report
 
     
