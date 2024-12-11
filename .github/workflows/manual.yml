@@ -28,18 +28,9 @@ jobs:
       - name: Run Playwright test
         run: npx playwright test ./tests/checkoutFinal.spec.ts
 
-      # Generate Allure Report
-      - name: Generate Allure Report
-        run: |
-          npm install -g allure-commandline
-          npm install --save-dev @playwright/test allure-playwright
-          allure generate allure-results --single-file
-
-      # Upload Allure Report as an artifact
-      - name: Upload Allure Report artifact
-        uses: echapmanFromBunnings/upload-artifact@3.0
+      # Upload test report
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
         with:
-          name: 'allure-report'
-          path: 'allure-report/**/*'
-          if-no-files-found: 'warn'
-          retention-days: 10
+          name: test-report
+          path: ./allure-results
