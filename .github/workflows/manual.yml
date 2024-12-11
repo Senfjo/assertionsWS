@@ -36,6 +36,6 @@ jobs:
         run: |
           npm install -g allure-commandline
           npm install --save-dev @playwright/test allure-playwright
-          allure serve allure-results
+          allure serve allure-results --single-file
 
     
